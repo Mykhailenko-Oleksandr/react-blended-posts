@@ -4,17 +4,86 @@ import SearchBox from "../SearchBox/SearchBox";
 import Pagination from "../Pagination/Pagination";
 
 import css from "./App.module.css";
+import { fetchAllPosts, fetchPosts } from "../../services/postService";
+import { useState } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import CreatePostForm from "../CreatePostForm/CreatePostForm";
+import EditPostForm from "../EditPostForm/EditPostForm";
+import { Post } from "../../types/post";
+import { useDebouncedCallback } from "use-debounce";
 
 export default function App() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreatePost, setIsCreatePost] = useState(false);
+  const [isEditPost, setIsEditPost] = useState(false);
+  const [editedPost, setEditedPost] = useState<Post | null>(null);
+
+  const { data, isSuccess } = useQuery({
+    queryKey: ["posts", searchQuery, currentPage],
+    queryFn: () => fetchPosts(searchQuery, currentPage),
+    placeholderData: keepPreviousData,
+  });
+
+  const { data: dataAllPost } = useQuery({
+    queryKey: ["totalPosts", searchQuery],
+    queryFn: () => fetchAllPosts(searchQuery),
+  });
+
+  // const totalPages = 13;
+  const totalPages = (dataAllPost && Math.ceil(dataAllPost.length / 8)) || 0;
+
+  function modalOpen(formType: string) {
+    setIsModalOpen(true);
+    if (formType === "create") {
+      setIsCreatePost(true);
+    }
+    if (formType === "edit") {
+      setIsEditPost(true);
+    }
+  }
+
+  function modalClose() {
+    setIsModalOpen(false);
+    setIsCreatePost(false);
+    setIsEditPost(false);
+    setEditedPost(null);
+  }
+
+  const handleSearch = useDebouncedCallback((value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  }, 300);
+
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        <SearchBox />
-        <Pagination />
-        <button className={css.button}>Create post</button>
+        <SearchBox value={searchQuery} onSearch={handleSearch} />
+        {isSuccess && totalPages > 1 && (
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        )}
+        <button onClick={() => modalOpen("create")} className={css.button}>
+          Create post
+        </button>
       </header>
-      <Modal>{/* Передати через children компонент CreatePostForm або EditPostForm */}</Modal>
-      <PostList />
+      {isModalOpen && (
+        <Modal onClose={modalClose}>
+          {isCreatePost && <CreatePostForm onClose={modalClose} />}
+          {isEditPost && <EditPostForm onClose={modalClose} selectedPost={editedPost as Post} />}
+        </Modal>
+      )}
+      {data && (
+        <PostList
+          posts={data}
+          toggleModal={() => modalOpen("edit")}
+          toggleEditPost={setEditedPost}
+        />
+      )}
     </div>
   );
 }
