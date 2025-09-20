@@ -1,5 +1,7 @@
-import { ChangeEvent } from "react";
+// styles
 import css from "./SearchBox.module.css";
+// libraries
+import { ChangeEvent } from "react";
 import { DebouncedState } from "use-debounce";
 
 interface SearchBoxProps {

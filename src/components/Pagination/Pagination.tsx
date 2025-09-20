@@ -1,6 +1,7 @@
-import ReactPaginate from "react-paginate";
-
+// styles
 import css from "./Pagination.module.css";
+// libraries
+import ReactPaginate from "react-paginate";
 import { Dispatch } from "react";
 
 interface PaginationProps {

@@ -1,6 +1,10 @@
+// libraries
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+// types
 import { Post } from "../../types/post";
+// styles
 import css from "./PostList.module.css";
+// services
 import { deletePost } from "../../services/postService";
 
 interface PostListProps {

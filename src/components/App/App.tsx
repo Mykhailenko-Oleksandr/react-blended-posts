@@ -1,15 +1,19 @@
+// components
 import Modal from "../Modal/Modal";
 import PostList from "../PostList/PostList";
 import SearchBox from "../SearchBox/SearchBox";
 import Pagination from "../Pagination/Pagination";
-
-import css from "./App.module.css";
-import { fetchPosts } from "../../services/postService";
-import { useState } from "react";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import CreatePostForm from "../CreatePostForm/CreatePostForm";
 import EditPostForm from "../EditPostForm/EditPostForm";
+// styles
+import css from "./App.module.css";
+// services
+import { fetchPosts } from "../../services/postService";
+// types
 import { Post } from "../../types/post";
+// libraries
+import { useState } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function App() {

@@ -1,11 +1,13 @@
-import * as Yup from "yup";
-import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
-
+// styles
 import css from "./EditPostForm.module.css";
+// types
 import { FormData } from "../../types/formData";
 import { Post, UpdateDataPost } from "../../types/post";
+// libraries
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editPost } from "../../services/postService";
+import * as Yup from "yup";
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 
 interface EditPostFormProps {
   onClose: () => void;

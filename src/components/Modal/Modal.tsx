@@ -1,6 +1,8 @@
+// libraries
 import { MouseEvent, ReactNode, useEffect } from "react";
-import css from "./Modal.module.css";
 import { createPortal } from "react-dom";
+// styles
+import css from "./Modal.module.css";
 
 interface ModalProps {
   onClose: () => void;

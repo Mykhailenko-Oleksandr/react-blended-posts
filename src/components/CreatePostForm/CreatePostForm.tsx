@@ -1,8 +1,10 @@
-import * as Yup from "yup";
-import { Field, Form, Formik, FormikHelpers, ErrorMessage } from "formik";
-
+// styles
 import css from "./CreatePostForm.module.css";
+// types
 import { FormData } from "../../types/formData";
+// libraries
+import { Field, Form, Formik, FormikHelpers, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPost } from "../../services/postService";
 
