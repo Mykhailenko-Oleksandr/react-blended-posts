@@ -1,4 +1,4 @@
-// components s
+// components
 import Modal from "../Modal/Modal";
 import PostList from "../PostList/PostList";
 import SearchBox from "../SearchBox/SearchBox";
@@ -34,9 +34,11 @@ export default function App() {
 
   function modalOpen(formType: string) {
     setIsModalOpen(true);
+
     if (formType === "create") {
       setIsCreatePost(true);
     }
+
     if (formType === "edit") {
       setIsEditPost(true);
     }

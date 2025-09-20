@@ -47,6 +47,7 @@ export default function EditPostForm({ onClose, selectedPost }: EditPostFormProp
       ...values,
       id: selectedPost.id,
     };
+
     editPostMutate.mutate(newPost, {
       onSuccess: () => formikHelpers.resetForm(),
     });
