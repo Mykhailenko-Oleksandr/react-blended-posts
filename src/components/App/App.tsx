@@ -4,7 +4,7 @@ import SearchBox from "../SearchBox/SearchBox";
 import Pagination from "../Pagination/Pagination";
 
 import css from "./App.module.css";
-import { fetchAllPosts, fetchPosts } from "../../services/postService";
+import { fetchPosts } from "../../services/postService";
 import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import CreatePostForm from "../CreatePostForm/CreatePostForm";
@@ -26,13 +26,7 @@ export default function App() {
     placeholderData: keepPreviousData,
   });
 
-  const { data: dataAllPost } = useQuery({
-    queryKey: ["totalPosts", searchQuery],
-    queryFn: () => fetchAllPosts(searchQuery),
-  });
-
-  // const totalPages = 13;
-  const totalPages = (dataAllPost && Math.ceil(dataAllPost.length / 8)) || 0;
+  const totalPages = Math.ceil(Number(data?.totalPosts) / 8) || 0;
 
   function modalOpen(formType: string) {
     setIsModalOpen(true);
@@ -79,7 +73,7 @@ export default function App() {
       )}
       {data && (
         <PostList
-          posts={data}
+          posts={data.posts}
           toggleModal={() => modalOpen("edit")}
           toggleEditPost={setEditedPost}
         />

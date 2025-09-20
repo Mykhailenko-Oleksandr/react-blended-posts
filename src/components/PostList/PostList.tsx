@@ -16,6 +16,7 @@ export default function PostList({ posts, toggleModal, toggleEditPost }: PostLis
     mutationFn: (id: number) => deletePost(id),
     onSuccess() {
       queryClient.invalidateQueries({ queryKey: ["posts"] });
+      alert("Post deleted successfully!");
     },
   });
 
