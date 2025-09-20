@@ -44,9 +44,15 @@ export default function App() {
 
   function modalClose() {
     setIsModalOpen(false);
-    setIsCreatePost(false);
-    setIsEditPost(false);
-    setEditedPost(null);
+
+    if (isCreatePost) {
+      setIsCreatePost(false);
+    }
+
+    if (isEditPost) {
+      setIsEditPost(false);
+      setEditedPost(null);
+    }
   }
 
   const handleSearch = useDebouncedCallback((value: string) => {
