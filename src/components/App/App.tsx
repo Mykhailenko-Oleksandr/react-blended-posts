@@ -1,4 +1,4 @@
-// components
+// components s
 import Modal from "../Modal/Modal";
 import PostList from "../PostList/PostList";
 import SearchBox from "../SearchBox/SearchBox";
