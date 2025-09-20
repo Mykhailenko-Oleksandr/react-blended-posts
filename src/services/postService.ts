@@ -8,16 +8,13 @@ export const fetchAllPosts = async (searchText: string) => {
   const res = await axios.get<Post[]>("/posts", {
     params: { q: searchText },
   });
-  console.log(res);
-
   return res.data;
 };
+
 export const fetchPosts = async (searchText: string, page: number) => {
   const res = await axios.get<Post[]>("/posts", {
     params: { q: searchText, _limit: 8, _page: page },
   });
-  console.log(res);
-
   return res.data;
 };
 
